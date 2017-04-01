@@ -23,6 +23,7 @@ namespace TheIveyWayDesigns
         public AddVendorProduct(int vendorId)
         {
             InitializeComponent();
+            txtVendorId.Text = vendorId.ToString();
         }
 
         private void btnVendors_Click(object sender, RoutedEventArgs e)
