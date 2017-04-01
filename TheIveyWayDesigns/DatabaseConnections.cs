@@ -236,6 +236,61 @@ namespace TheIveyWayDesigns
             }).ToList();
         }
 
+        public IEnumerable<VendorsModel> GetVendors()
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select VendorId, VendorName, Address, City, State, ZipCode, Phone, Website from Vendors";
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(v => new VendorsModel()
+            {
+                Address = v["Address"].ToString(),
+                City = v["City"].ToString(),
+                PhoneNumber = v["Phone"].ToString(),
+                State = v["State"].ToString(),
+                VendorId = Convert.ToInt32(v["VendorId"].ToString()),
+                VendorName = v["VendorName"].ToString(),
+                Website = v["Website"].ToString(),
+                ZipCode = v["ZipCode"].ToString()
+            }).ToList();
+        }
+
+        public IEnumerable<VendorProductsModel> GetVendorProducts(int vendorId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select VendorProductsId, VendorId, Description, Price" +
+                    " from VendorProducts where VendorId = @VendorId";
+
+                comm.Parameters.AddWithValue("@VendorId", vendorId);
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(o => new VendorProductsModel()
+            {
+                VendorId = Convert.ToInt32(o["VendorId"].ToString()),
+                VendorProductsId = Convert.ToInt32(o["VendorProductsId"].ToString()),
+                Description = o["Description"].ToString(),
+                Price = Convert.ToDouble(o["Price"].ToString())
+            }).ToList();
+        }
+
         private string CreateDatabase()
         {
             string dbPath = String.Format("{0}IveyWayDesigns.sdf", @"C:\IveyWayDesigns\");

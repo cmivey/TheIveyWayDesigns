@@ -31,10 +31,10 @@ namespace TheIveyWayDesigns
             dgCustomers.ItemsSource = customersModel;
         }
 
-        private void btnHome_Click(object sender, RoutedEventArgs e)
+        private void btnVendors_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mWindow = new MainWindow();
-            mWindow.Show();
+            Vendors vendors = new Vendors();
+            vendors.Show();
             this.Close();
         }
 

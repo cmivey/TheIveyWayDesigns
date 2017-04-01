@@ -1,0 +1,55 @@
+﻿<Window x:Class="TheIveyWayDesigns.Vendors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheIveyWayDesigns"
+        mc:Ignorable="d"
+        Title="Vendors" Height="700" Width="680" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button x:Name="btnAddVendor" Content="Add Vendor" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="93" Click="btnAddVendor_Click"/>
+        <Button x:Name="btnCustomers" Content="Customers" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="75" Click="btnCustomers_Click"/>
+        <DataGrid x:Name="dgVendors" HorizontalAlignment="Left" Margin="22,67,0,413" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding VendorId}" Header="Vendor Number" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Address}" Header="Address" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding City}" Header="City" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding State}" Header="State" IsReadOnly="true" Width="*"/>
+                <DataGridTextColumn Binding="{Binding ZipCode}" Header="Zip" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Phone}" Header="Phone" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding WebSite}" Header="Website" IsReadOnly="True" Width="*"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button x:Name="btnVendorProducst" Click="btnVendorProducst_Click">View Vendor Products</Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button x:Name="btnEditVendor" Click="btnEditVendor_Click">Edit Vendor</Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Label x:Name="lblVendorProducts"  Margin="22,263,427,357" Visibility="hidden"></Label>
+        <DataGrid x:Name="dgVendorProducts" HorizontalAlignment="Left" Margin="22,299,0,181" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" Visibility="hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding VendorProductsId}" Header="Product Number" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Description" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Price" IsReadOnly="True" Width="*"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Window>
