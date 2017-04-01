@@ -63,6 +63,9 @@ namespace TheIveyWayDesigns
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
+            AddVendorProduct addProduct = new AddVendorProduct(Convert.ToInt32(lblVendorID.Content));
+            addProduct.Show();
+            this.Close();
 
         }
     }

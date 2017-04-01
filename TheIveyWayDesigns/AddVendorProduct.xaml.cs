@@ -35,6 +35,18 @@ namespace TheIveyWayDesigns
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
+            VendorProductsModel model = new VendorProductsModel()
+            {
+                VendorId = Convert.ToInt32(txtVendorId.Text),
+                Description = txtDescription.Text,
+                Price = Convert.ToDouble(txtPrice.Text)
+            };
+
+            dbConnect.AddVendorProduct(model);
+
+            txtDescription.Text = "";
+            txtPrice.Text = "";
+            MessageBox.Show("Vendor Product Added Successfully");
 
         }
     }
