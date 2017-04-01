@@ -1,0 +1,268 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Entity.SqlServerCompact;
+using System.Data.SqlServerCe;
+using System.IO;
+using System.Data;
+
+namespace TheIveyWayDesigns
+{
+    public class DatabaseConnections
+    {
+        public SqlCeConnection InitializeDatabase()
+        {
+            string connectionString = CreateDatabase();
+            SqlCeConnection conn = new SqlCeConnection(connectionString);
+            conn.Open();
+
+            //CreateTable(conn);
+
+            return conn;
+        }
+
+        public IEnumerable<CustomerModel> GetCustomers()
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select * from customers";
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+                
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(c => new CustomerModel()
+            {
+                Address = c["Address"].ToString(),
+                City = c["City"].ToString(),
+                CustomerId = Convert.ToInt32(c["CustomerId"].ToString()),
+                Name = c["Name"].ToString(),
+                PhoneNumber = c["PhoneNumber"].ToString(),
+                State = c["state"].ToString(),
+                ZipCode = c["ZipCode"].ToString()
+            }).ToList();
+        }
+
+        public void AddCustomer(CustomerModel customerModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "insert into customers (name, address, city, state, zipcode, phonenumber) values (@Name, @Address, @City, @State, @ZipCode, @PhoneNumber)";
+
+                comm.Parameters.AddWithValue("@Name", customerModel.Name);
+                comm.Parameters.AddWithValue("@Address", customerModel.Address);
+                comm.Parameters.AddWithValue("@City", customerModel.City);
+                comm.Parameters.AddWithValue("@State", customerModel.State);
+                comm.Parameters.AddWithValue("@ZipCode", customerModel.ZipCode);
+                comm.Parameters.AddWithValue("@PhoneNumber", customerModel.PhoneNumber);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
+        public void UpdateCustomer(CustomerModel customerModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "UPDATE Customers SET Name = @Name, Address = @Address, " +
+                    "City = @City, State = @State, ZipCode = @ZipCode, PhoneNumber = @PhoneNumber " +
+                    "Where CustomerId = @CustomerId";
+
+                comm.Parameters.AddWithValue("@Name", customerModel.Name);
+                comm.Parameters.AddWithValue("@Address", customerModel.Address);
+                comm.Parameters.AddWithValue("@City", customerModel.City);
+                comm.Parameters.AddWithValue("@State", customerModel.State);
+                comm.Parameters.AddWithValue("@ZipCode", customerModel.ZipCode);
+                comm.Parameters.AddWithValue("@PhoneNumber", customerModel.PhoneNumber);
+                comm.Parameters.AddWithValue("@CustomerId", customerModel.CustomerId);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
+        public void AddOrder(List<AddOrderModel> addOrderModel, int customerId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            int orderId = 0;
+
+            double orderTotal = addOrderModel.Select(a => a.LineTotal).Sum();
+
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "insert into Orders (CustomerId, OrderDate, Shipped, OrderTotal) values (@CustomerId, @OrderDate, @Shipped, @OrderTotal)";
+
+                comm.Parameters.AddWithValue("@CustomerId", customerId);
+                comm.Parameters.AddWithValue("@OrderDate", DateTime.Now);
+                comm.Parameters.AddWithValue("@Shipped", false);
+                comm.Parameters.AddWithValue("@OrderTotal", orderTotal);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.CommandText = "SELECT @@IDENTITY";
+                orderId = Convert.ToInt32(comm.ExecuteScalar());
+
+
+
+                comm.Connection.Close();
+            }
+
+            foreach (var order in addOrderModel)
+            {
+                using (SqlCeCommand comm = new SqlCeCommand())
+                {
+                    comm.Connection = new SqlCeConnection(connectionString);
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = "insert into OrderDetails (OrderId, Description, Quantity, Price, LineTotal) " +
+                        "values (@OrderId, @Description, @Quantity, @Price, @LineTotal)";
+
+                    comm.Parameters.AddWithValue("@OrderId", orderId);
+                    comm.Parameters.AddWithValue("@Description", order.Description);
+                    comm.Parameters.AddWithValue("@Quantity", order.Quantity);
+                    comm.Parameters.AddWithValue("@Price", order.Price);
+                    comm.Parameters.AddWithValue("@LineTotal", order.LineTotal);
+
+                    comm.Connection.Open();
+                    comm.ExecuteNonQuery();
+                    comm.Connection.Close();
+                }
+            }
+            
+        }
+
+        public IEnumerable<OrdersModel> GetOrdersForCustomer(int customerId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select c.Name, c.CustomerId, o.orderdate, o.shipped, o.OrderId, " +
+                    "o.OrderTotal from Customers as c inner join Orders as o on c.CustomerId = o.CustomerId where c.CustomerId = @CustomerId " +
+                    "and o.Shipped = 0";
+
+                comm.Parameters.AddWithValue("@CustomerId", customerId);
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }            
+
+            return dt.AsEnumerable().Select(o => new OrdersModel()
+            {
+                Customer = o["Name"].ToString(),
+                CustomerId = Convert.ToInt32(o["CustomerId"].ToString()),
+                OrderDate = Convert.ToDateTime(o["OrderDate"].ToString()),
+                OrderId = Convert.ToInt32(o["OrderId"].ToString()),
+                Shipped = Convert.ToBoolean(o["Shipped"].ToString()),
+                OrderTotal = Convert.ToDouble(o["OrderTotal"].ToString())
+            }).ToList();
+        }
+
+        public IEnumerable<OrdersModel> GetAllCurrentOrders()
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select c.Name, c.CustomerId, o.orderdate, o.shipped, o.OrderId, " +
+                    "o.OrderTotal from Customers as c inner join Orders as o on c.CustomerId = o.CustomerId where o.Shipped = 0";
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(o => new OrdersModel()
+            {
+                Customer = o["Name"].ToString(),
+                CustomerId = Convert.ToInt32(o["CustomerId"].ToString()),
+                OrderDate = Convert.ToDateTime(o["OrderDate"].ToString()),
+                OrderId = Convert.ToInt32(o["OrderId"].ToString()),
+                Shipped = Convert.ToBoolean(o["Shipped"].ToString()),
+                OrderTotal = Convert.ToDouble(o["OrderTotal"].ToString())
+            }).ToList();
+        }
+
+        public IEnumerable<OrderDetailsModel> GetOrderDetails(int orderId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select Description, Quantity, Price, LIneTotal, OrderId, OrderDetailsId " +
+                    " from OrderDetails where OrderId = @OrderId";
+
+                comm.Parameters.AddWithValue("@OrderId", orderId);
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(o => new OrderDetailsModel()
+            {
+                OrderId = Convert.ToInt32(o["OrderId"].ToString()),
+                OrderDetailsId = Convert.ToInt32(o["OrderDetailsId"].ToString()),
+                Description = o["Description"].ToString(),
+                Quantity = Convert.ToInt32(o["Quantity"].ToString()),
+                Price = Convert.ToDouble(o["Price"].ToString()),
+                LineTotal = Convert.ToDouble(o["LineTotal"].ToString())
+            }).ToList();
+        }
+
+        private string CreateDatabase()
+        {
+            string dbPath = String.Format("{0}IveyWayDesigns.sdf", @"C:\IveyWayDesigns\");
+
+            string connectionString = String.Format("DataSource=\"{0}\";Max Database Size=3000;", dbPath);
+
+            if (!File.Exists(dbPath))
+            {
+                //File.Delete(dbPath);
+
+                SqlCeEngine en = new SqlCeEngine(connectionString);
+                en.CreateDatabase();
+                en.Dispose();
+            }
+
+            return connectionString;
+        }
+
+        private void CreateTable(SqlCeConnection conn)
+        {
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = conn;
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "CREATE TABLE Orders ([Id] [int] IDENTITY(1,1) PRIMARY KEY, [Name] [nvarchar](110) NOT NULL, [Geometry] [varbinary](429) NOT NULL)";
+                comm.ExecuteNonQuery();
+            }
+        }
+    }
+}
