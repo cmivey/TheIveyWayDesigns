@@ -42,7 +42,9 @@
 
         </DataGrid>
 
-        <Label x:Name="lblVendorProducts"  Margin="22,263,427,357" Visibility="hidden"></Label>
+        <Label x:Name="lblVendorProducts"  Margin="22,263,427,357" Visibility="Hidden"></Label>
+        <Label x:Name="lblVendorID"  Margin="22,263,427,357" Visibility="Hidden"></Label>
+        <Button x:Name="btnAddProduct" Margin="439,270,10,350" Click="btnAddProduct_Click" Visibility="Hidden">Add Product</Button>
         <DataGrid x:Name="dgVendorProducts" HorizontalAlignment="Left" Margin="22,299,0,181" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" Visibility="hidden">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding VendorProductsId}" Header="Product Number" IsReadOnly="True" Width="*"/>

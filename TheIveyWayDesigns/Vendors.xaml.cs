@@ -49,12 +49,19 @@ namespace TheIveyWayDesigns
 
             dgVendorProducts.Visibility = Visibility.Visible;
             lblVendorProducts.Visibility = Visibility.Visible;
+            btnAddProduct.Visibility = Visibility.Visible;
             lblVendorProducts.Content = "Vendor Products for Vendor: " + vendorInfo.VendorName;
+            lblVendorID.Content = vendorInfo.VendorId.ToString();
 
             dgVendorProducts.ItemsSource = vendorProducts;
         }
 
         private void btnEditVendor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
 
         }

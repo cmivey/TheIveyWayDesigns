@@ -291,6 +291,54 @@ namespace TheIveyWayDesigns
             }).ToList();
         }
 
+        public void AddVendor(VendorsModel vendorModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "insert into Vendors (VendorName, Address, City, State, ZipCode, Phone, Website) values (@VendorName, @Address, @City, @State, @ZipCode, @Phone, @WebSite)";
+
+                comm.Parameters.AddWithValue("@VendorName", vendorModel.VendorName);
+                comm.Parameters.AddWithValue("@Address", vendorModel.Address);
+                comm.Parameters.AddWithValue("@City", vendorModel.City);
+                comm.Parameters.AddWithValue("@State", vendorModel.State);
+                comm.Parameters.AddWithValue("@ZipCode", vendorModel.ZipCode);
+                comm.Parameters.AddWithValue("@Phone", vendorModel.PhoneNumber);
+                comm.Parameters.AddWithValue("@Webste", vendorModel.Website);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
+        public void AddVendorProduct(VendorProductsModel vendorProductsModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+
+           
+
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "insert into VendorProducts (VendorId, Description, Price) values (@VendorId, @Description, @Price)";
+
+                comm.Parameters.AddWithValue("@VendorId", vendorProductsModel.VendorId);
+                comm.Parameters.AddWithValue("@Description", vendorProductsModel.Description);
+                comm.Parameters.AddWithValue("@Price", vendorProductsModel.Price);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
         private string CreateDatabase()
         {
             string dbPath = String.Format("{0}IveyWayDesigns.sdf", @"C:\IveyWayDesigns\");
