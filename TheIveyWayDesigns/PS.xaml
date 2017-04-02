@@ -8,6 +8,7 @@
         xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         Title="Packing Slip" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <Grid>
+        <TextBox x:Name="txtCustomerId" Visibility="hidden"></TextBox>
         <WindowsFormsHost>
             <rv:ReportViewer x:Name="_reportViewer"/>
         </WindowsFormsHost>

@@ -363,7 +363,7 @@ namespace TheIveyWayDesigns
             {
                 Address = ps["Address"].ToString(),
                 City = ps["City"].ToString(),
-                CustomerName = ps["Name"].ToString(),
+                Name = ps["Name"].ToString(),
                 Description = ps["Description"].ToString(),
                 LineNumber = Convert.ToInt32(ps["OrderDetailsId"].ToString()),
                 LineTotal = Convert.ToDouble(ps["LineTotal"].ToString()),
