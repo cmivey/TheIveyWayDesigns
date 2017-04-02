@@ -1,17 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace TheIveyWayDesigns
 {
@@ -44,7 +32,7 @@ namespace TheIveyWayDesigns
                 reportDataSource1.Name = "PackingSlip"; //Name of the report dataset in our .RDLC file
                 reportDataSource1.Value = dbConnect.GetPackingListInfo(Convert.ToInt32(txtOrderId.Text));
                 this._reportViewer.LocalReport.DataSources.Add(reportDataSource1);
-                this._reportViewer.LocalReport.ReportEmbeddedResource = "TheIveyWayDesigns.PackingSlip.rdlc";
+                this._reportViewer.LocalReport.ReportEmbeddedResource = "TheIveyWayDesigns.Reports.PackingSlip.rdlc";
 
                 dataset.EndInit();
 
