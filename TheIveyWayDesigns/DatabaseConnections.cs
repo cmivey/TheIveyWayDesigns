@@ -308,7 +308,7 @@ namespace TheIveyWayDesigns
                 comm.Parameters.AddWithValue("@State", vendorModel.State);
                 comm.Parameters.AddWithValue("@ZipCode", vendorModel.ZipCode);
                 comm.Parameters.AddWithValue("@Phone", vendorModel.PhoneNumber);
-                comm.Parameters.AddWithValue("@Webste", vendorModel.Website);
+                comm.Parameters.AddWithValue("@Website", vendorModel.Website);
 
                 comm.Connection.Open();
                 comm.ExecuteNonQuery();

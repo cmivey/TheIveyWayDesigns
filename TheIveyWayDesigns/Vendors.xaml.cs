@@ -31,7 +31,9 @@ namespace TheIveyWayDesigns
 
         private void btnAddVendor_Click(object sender, RoutedEventArgs e)
         {
-
+            AddVendor addVendor = new AddVendor();
+            addVendor.Show();
+            this.Close();
         }
 
         private void btnCustomers_Click(object sender, RoutedEventArgs e)
