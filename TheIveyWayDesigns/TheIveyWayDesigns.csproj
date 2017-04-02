@@ -119,6 +119,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PackingSlipModel.cs" />
     <Compile Include="Vendors.xaml.cs">
       <DependentUpon>Vendors.xaml</DependentUpon>
     </Compile>

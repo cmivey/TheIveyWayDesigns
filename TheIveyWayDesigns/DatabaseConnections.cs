@@ -339,6 +339,45 @@ namespace TheIveyWayDesigns
             }
         }
 
+        public IEnumerable<PackingSlipModel> GetPackingListInfo(int customerId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select c.Name, c.Address, c.City, c.State, c.ZipCode, c.PhoneNumber, " +
+	            "o.OrderId, o.OrderDate, o.OrderTotal, od.OrderDetailsId, od.Description, od.Quantity, " + 
+	            "od.Price, od.LineTotal from customers as c inner join orders as o on c.customerid = o.customerid inner join " +
+                "orderdetails as od on o.orderid = od.orderid where c.customerid = @CustomerId";
+
+                comm.Parameters.AddWithValue("@CustomerId", customerId);
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(ps => new PackingSlipModel()
+            {
+                Address = ps["Address"].ToString(),
+                City = ps["City"].ToString(),
+                CustomerName = ps["Name"].ToString(),
+                Description = ps["Description"].ToString(),
+                LineNumber = Convert.ToInt32(ps["OrderDetailsId"].ToString()),
+                LineTotal = Convert.ToDouble(ps["LineTotal"].ToString()),
+                OrderDate = Convert.ToDateTime(ps["OrderDate"].ToString()),
+                OrderNumber = Convert.ToInt32(ps["OrderId"].ToString()),
+                OrderTotal = Convert.ToDouble(ps["OrderTotal"].ToString()),
+                PhoneNumber = ps["PhoneNumber"].ToString(),
+                Price = Convert.ToDouble(ps["Price"].ToString()),
+                Quantity = Convert.ToInt32(ps["Quantity"].ToString()),
+                State = ps["State"].ToString(),
+                ZipCode = ps["ZipCode"].ToString(),
+            }).ToList();
+        }
+
         private string CreateDatabase()
         {
             string dbPath = String.Format("{0}IveyWayDesigns.sdf", @"C:\IveyWayDesigns\");
