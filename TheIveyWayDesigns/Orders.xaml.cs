@@ -79,7 +79,11 @@ namespace TheIveyWayDesigns
 
         private void btnPrintPackingSlip_Click(object sender, RoutedEventArgs e)
         {
+            OrdersModel orderInfo = ((FrameworkElement)sender).DataContext as OrdersModel;
 
+            PS ps = new PS(orderInfo.CustomerId);
+            ps.Show();
+            this.Close();
         }
     }
 }
