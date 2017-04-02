@@ -489,7 +489,7 @@ namespace TheIveyWayDesigns {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PackingSlipRow AddPackingSlipRow(string Name, string Address, string City, string State, string ZipCode, string PhoneNumber, int OrderNumber, System.DateTime OrderDate, double OrderTotal, int LineNumber, string Description, int Quantity, double Price, double LineTotal) {
+            public PackingSlipRow AddPackingSlipRow(string Name, string Address, string City, string State, string ZipCode, string PhoneNumber, string OrderNumber, string OrderDate, string OrderTotal, int LineNumber, string Description, int Quantity, double Price, double LineTotal) {
                 PackingSlipRow rowPackingSlipRow = ((PackingSlipRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
@@ -559,11 +559,11 @@ namespace TheIveyWayDesigns {
                 base.Columns.Add(this.columnZipCode);
                 this.columnPhoneNumber = new global::System.Data.DataColumn("PhoneNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPhoneNumber);
-                this.columnOrderNumber = new global::System.Data.DataColumn("OrderNumber", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnOrderNumber = new global::System.Data.DataColumn("OrderNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderNumber);
-                this.columnOrderDate = new global::System.Data.DataColumn("OrderDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnOrderDate = new global::System.Data.DataColumn("OrderDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderDate);
-                this.columnOrderTotal = new global::System.Data.DataColumn("OrderTotal", typeof(double), null, global::System.Data.MappingType.Element);
+                this.columnOrderTotal = new global::System.Data.DataColumn("OrderTotal", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderTotal);
                 this.columnLineNumber = new global::System.Data.DataColumn("LineNumber", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLineNumber);
@@ -815,10 +815,10 @@ namespace TheIveyWayDesigns {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int OrderNumber {
+            public string OrderNumber {
                 get {
                     try {
-                        return ((int)(this[this.tablePackingSlip.OrderNumberColumn]));
+                        return ((string)(this[this.tablePackingSlip.OrderNumberColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'OrderNumber\' in table \'PackingSlip\' is DBNull.", e);
@@ -831,10 +831,10 @@ namespace TheIveyWayDesigns {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime OrderDate {
+            public string OrderDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablePackingSlip.OrderDateColumn]));
+                        return ((string)(this[this.tablePackingSlip.OrderDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'OrderDate\' in table \'PackingSlip\' is DBNull.", e);
@@ -847,10 +847,10 @@ namespace TheIveyWayDesigns {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double OrderTotal {
+            public string OrderTotal {
                 get {
                     try {
-                        return ((double)(this[this.tablePackingSlip.OrderTotalColumn]));
+                        return ((string)(this[this.tablePackingSlip.OrderTotalColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'OrderTotal\' in table \'PackingSlip\' is DBNull.", e);

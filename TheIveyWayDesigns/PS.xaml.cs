@@ -21,10 +21,11 @@ namespace TheIveyWayDesigns
     public partial class PS : Window
     {
         DatabaseConnections dbConnect = new DatabaseConnections();
-        public PS(int customerId)
+        public PS(int orderId, int customerId)
         {
             InitializeComponent();
             txtCustomerId.Text = customerId.ToString();
+            txtOrderId.Text = orderId.ToString();
 
             _reportViewer.Load += ReportViewer_Load;
         }
@@ -41,7 +42,7 @@ namespace TheIveyWayDesigns
                 dataset.BeginInit();
 
                 reportDataSource1.Name = "PackingSlip"; //Name of the report dataset in our .RDLC file
-                reportDataSource1.Value = dbConnect.GetPackingListInfo(Convert.ToInt32(txtCustomerId.Text));
+                reportDataSource1.Value = dbConnect.GetPackingListInfo(Convert.ToInt32(txtOrderId.Text));
                 this._reportViewer.LocalReport.DataSources.Add(reportDataSource1);
                 this._reportViewer.LocalReport.ReportEmbeddedResource = "TheIveyWayDesigns.PackingSlip.rdlc";
 
@@ -51,6 +52,20 @@ namespace TheIveyWayDesigns
 
                 _isReportViewerLoaded = true;
             }
+        }
+
+        private void btnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Orders order = new Orders(Convert.ToInt32(txtCustomerId.Text));
+            order.Show();
+            this.Close();
+        }
+
+        private void btnShipOrder_Click(object sender, RoutedEventArgs e)
+        {
+            dbConnect.ShipOrder(Convert.ToInt32(txtOrderId.Text));
+
+            MessageBox.Show("Order number: " + Convert.ToInt32(txtOrderId.Text) + " has been set to shipped.");
         }
     }
 }

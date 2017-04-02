@@ -81,7 +81,7 @@ namespace TheIveyWayDesigns
         {
             OrdersModel orderInfo = ((FrameworkElement)sender).DataContext as OrdersModel;
 
-            PS ps = new PS(orderInfo.CustomerId);
+            PS ps = new PS(orderInfo.OrderId, orderInfo.CustomerId);
             ps.Show();
             this.Close();
         }

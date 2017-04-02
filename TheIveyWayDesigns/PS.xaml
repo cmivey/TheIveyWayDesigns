@@ -6,11 +6,16 @@
         xmlns:local="clr-namespace:TheIveyWayDesigns"
         mc:Ignorable="d"
         xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
-        Title="Packing Slip" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+        Title="Packing Slip" Height="390.226" Width="714.962" WindowStartupLocation="CenterScreen">
     <Grid>
+        
         <TextBox x:Name="txtCustomerId" Visibility="hidden"></TextBox>
-        <WindowsFormsHost>
+        <TextBox x:Name="txtOrderId" Visibility="hidden"></TextBox>
+        
+        <WindowsFormsHost Margin="0,41,0,0">
             <rv:ReportViewer x:Name="_reportViewer"/>
         </WindowsFormsHost>
+        <Button x:Name="btnViewOrders" Content="View Orders" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="btnOrders_Click"/>
+        <Button x:Name="btnShipOrder" Content="Ship Order" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top" Width="75" Click="btnShipOrder_Click"/>
     </Grid>
 </Window>
