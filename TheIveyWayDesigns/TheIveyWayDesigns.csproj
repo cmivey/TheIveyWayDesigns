@@ -95,14 +95,12 @@
     <Compile Include="AddOrder.xaml.cs">
       <DependentUpon>AddOrder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddOrderModel.cs" />
     <Compile Include="AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddVendorProduct.xaml.cs">
       <DependentUpon>AddVendorProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomerModel.cs" />
     <Compile Include="Customers.xaml.cs">
       <DependentUpon>Customers.xaml</DependentUpon>
     </Compile>
@@ -111,10 +109,14 @@
       <DependentUpon>EditCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs" />
+    <Compile Include="Models\AddOrderModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\OrdersModel.cs" />
+    <Compile Include="Models\PackingSlipModel.cs" />
+    <Compile Include="Models\VendorsModel.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrdersModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -124,14 +126,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PackingSlip.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PackingSlipModel.cs" />
     <Compile Include="PS.xaml.cs">
       <DependentUpon>PS.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vendors.xaml.cs">
       <DependentUpon>Vendors.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VendorsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -223,9 +223,7 @@
   <ItemGroup>
     <Resource Include="Images\IveyWayDesigns.jpg.JPG" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Customers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

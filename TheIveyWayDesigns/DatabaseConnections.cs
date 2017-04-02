@@ -7,6 +7,7 @@ using System.Data.Entity.SqlServerCompact;
 using System.Data.SqlServerCe;
 using System.IO;
 using System.Data;
+using TheIveyWayDesigns.Models;
 
 namespace TheIveyWayDesigns
 {
