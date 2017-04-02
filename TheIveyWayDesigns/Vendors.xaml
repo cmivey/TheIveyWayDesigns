@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheIveyWayDesigns"
         mc:Ignorable="d"
-        Title="Vendors" Height="700" Width="680" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="Vendors" Height="700" Width="974.737" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,-8,0">
         <Button x:Name="btnAddVendor" Content="Add Vendor" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="93" Click="btnAddVendor_Click"/>
         <Button x:Name="btnCustomers" Content="Customers" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="75" Click="btnCustomers_Click"/>
-        <DataGrid x:Name="dgVendors" HorizontalAlignment="Left" Margin="22,67,0,413" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" >
+        <DataGrid x:Name="dgVendors" HorizontalAlignment="Left" Margin="22,67,0,413" CanUserAddRows="False" Width="916" AutoGenerateColumns="false" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding VendorId}" Header="Vendor Number" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Address" IsReadOnly="True" Width="*"/>
@@ -42,10 +42,10 @@
 
         </DataGrid>
 
-        <Label x:Name="lblVendorProducts"  Margin="22,263,427,357" Visibility="Hidden"></Label>
+        <Label x:Name="lblVendorProducts"  Margin="22,263,427,375" Visibility="Hidden"></Label>
         <Label x:Name="lblVendorID"  Margin="22,263,427,357" Visibility="Hidden"></Label>
-        <Button x:Name="btnAddProduct" Margin="439,270,10,350" Click="btnAddProduct_Click" Visibility="Hidden">Add Product</Button>
-        <DataGrid x:Name="dgVendorProducts" HorizontalAlignment="Left" Margin="22,299,0,181" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" Visibility="hidden">
+        <Button x:Name="btnAddProduct" Margin="829,270,37,357" Click="btnAddProduct_Click" Visibility="hidden">Add Product</Button>
+        <DataGrid x:Name="dgVendorProducts" HorizontalAlignment="Left" Margin="22,351,0,129" CanUserAddRows="False" Width="916" AutoGenerateColumns="false" Visibility="Hidden">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding VendorProductsId}" Header="Product Number" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Description}" Header="Description" IsReadOnly="True" Width="*"/>

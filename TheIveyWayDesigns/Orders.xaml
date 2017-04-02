@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheIveyWayDesigns"
         mc:Ignorable="d"
-        Title="Orders" Height="600" Width="690" WindowStartupLocation="CenterScreen">
+        Title="Orders" Height="600" Width="929.594" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-18,-82">
         <Button x:Name="btnAddOrder" Content="Add Order" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="93" Click="btnAddOrder_Click"/>
         <Button x:Name="btnCustomers" Content="Customers" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="75" Click="btnCustomers_Click"/>
         <TextBox x:Name="txtCustomerId" Visibility="Hidden"></TextBox>
-        <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" Margin="22,67,0,413" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" >
+        <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" Margin="35,87,0,393" CanUserAddRows="False" Width="869" AutoGenerateColumns="false" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding OrderId}" Header="Order Number" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Customer}" Header="Customer" IsReadOnly="True" Width="*"/>
@@ -30,7 +30,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Button x:Name="btnPrintPackingSlip" Click="btnPrintPackingSlip_Click">View Order Details</Button>
+                                <Button x:Name="btnPrintPackingSlip" Click="btnPrintPackingSlip_Click">Print Packing Slip</Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
