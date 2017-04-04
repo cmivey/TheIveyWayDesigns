@@ -265,6 +265,65 @@ namespace TheIveyWayDesigns
             }).ToList();
         }
 
+        public VendorsModel GetVendorById(int vendorId)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select VendorId, VendorName, Address, City, State, ZipCode, Phone, Website from Vendors where VendorId = @VendorId";
+
+                comm.Parameters.AddWithValue("@VendorId", vendorId);
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            DataRow row = dt.Rows[0];
+
+            return new VendorsModel()
+            {
+                Address = row["Address"].ToString(),
+                City = row["City"].ToString(),
+                PhoneNumber = row["Phone"].ToString(),
+                State = row["State"].ToString(),
+                VendorId = Convert.ToInt32(row["VendorId"].ToString()),
+                VendorName = row["VendorName"].ToString(),
+                Website = row["Website"].ToString(),
+                ZipCode = row["ZipCode"].ToString()
+            };
+        }
+
+        public void UpdateVendor(VendorsModel vendorModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "UPDATE Vendors SET VendorName = @VendorName, Address = @Address, " +
+                    "City = @City, State = @State, ZipCode = @ZipCode, Phone = @Phone, WebSite = @Website " +
+                    "Where VendorId = @VendorId";
+
+                comm.Parameters.AddWithValue("@VendorId", vendorModel.VendorId);
+                comm.Parameters.AddWithValue("@VendorName", vendorModel.VendorName);
+                comm.Parameters.AddWithValue("@Address", vendorModel.Address);
+                comm.Parameters.AddWithValue("@City", vendorModel.City);
+                comm.Parameters.AddWithValue("@State", vendorModel.State);
+                comm.Parameters.AddWithValue("@ZipCode", vendorModel.ZipCode);
+                comm.Parameters.AddWithValue("@Phone", vendorModel.PhoneNumber);
+                comm.Parameters.AddWithValue("@Website", vendorModel.Website);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
         public IEnumerable<VendorProductsModel> GetVendorProducts(int vendorId)
         {
             string connectionString = CreateDatabase();

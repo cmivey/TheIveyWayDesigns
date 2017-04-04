@@ -51,7 +51,11 @@ namespace TheIveyWayDesigns
 
         private void btnEditVendor_Click(object sender, RoutedEventArgs e)
         {
+            VendorsModel vendorInfo = ((FrameworkElement)sender).DataContext as VendorsModel;
 
+            EditVendor editVendor = new EditVendor(vendorInfo.VendorId);
+            editVendor.Show();
+            this.Close();
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)

@@ -12,12 +12,13 @@
         <DataGrid x:Name="dgVendors" HorizontalAlignment="Left" Margin="22,67,0,413" CanUserAddRows="False" Width="916" AutoGenerateColumns="false" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding VendorId}" Header="Vendor Number" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding VendorName}" Header="Vendor Name" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Address" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding City}" Header="City" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Binding="{Binding State}" Header="State" IsReadOnly="true" Width="*"/>
                 <DataGridTextColumn Binding="{Binding ZipCode}" Header="Zip" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Phone}" Header="Phone" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Binding="{Binding WebSite}" Header="Website" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding PhoneNumber}" Header="Phone" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Website}" Header="Website" IsReadOnly="True" Width="*"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
