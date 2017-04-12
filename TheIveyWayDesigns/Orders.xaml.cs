@@ -12,6 +12,7 @@ namespace TheIveyWayDesigns
     public partial class Orders : Window
     {
         DatabaseConnections dbConnect = new DatabaseConnections();
+        CreateInvoice createInvoice = new CreateInvoice();
         public Orders(int? customerId)
         {
             InitializeComponent();
@@ -65,6 +66,8 @@ namespace TheIveyWayDesigns
             dgOrderDetails.Visibility = Visibility.Visible;
             lblOrderDetails.Visibility = Visibility.Visible;
             lblOrderDetails.Content = "Order Details for Order Number: " + orderInfo.OrderId.ToString();
+            btnCreateInvoice.Visibility = Visibility.Visible;
+            lblOrderId.Content = orderInfo.OrderId.ToString();
 
             dgOrderDetails.ItemsSource = orderDetails;
         }
@@ -76,6 +79,11 @@ namespace TheIveyWayDesigns
             PS ps = new PS(orderInfo.OrderId, orderInfo.CustomerId);
             ps.Show();
             this.Close();
+        }
+
+        private void btnCreateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            createInvoice.CreatePayPalInvoice(Convert.ToInt32(lblOrderId.Content));
         }
     }
 }
