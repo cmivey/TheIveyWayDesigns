@@ -68,6 +68,7 @@ namespace TheIveyWayDesigns
             lblOrderDetails.Content = "Order Details for Order Number: " + orderInfo.OrderId.ToString();
             btnCreateInvoice.Visibility = Visibility.Visible;
             lblOrderId.Content = orderInfo.OrderId.ToString();
+            btnViewInvoice.Visibility = Visibility.Visible;
 
             dgOrderDetails.ItemsSource = orderDetails;
         }
@@ -84,6 +85,13 @@ namespace TheIveyWayDesigns
         private void btnCreateInvoice_Click(object sender, RoutedEventArgs e)
         {
             createInvoice.CreatePayPalInvoice(Convert.ToInt32(lblOrderId.Content));
+        }
+
+        private void btnViewInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            Invoice invoice = new Invoice(Convert.ToInt32(lblOrderId.Content), Convert.ToInt32(txtCustomerId.Text));
+            invoice.Show();
+            this.Close();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TheIveyWayDesigns
                 unit_price = new Currency() { currency = "USD", value = od.Price.ToString() }
             }).ToList();
 
-            var invoice = new Invoice()
+            var invoice = new PayPal.Api.Invoice()
             {
                 merchant_info = new MerchantInfo()
                 {

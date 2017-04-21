@@ -39,9 +39,10 @@
 
         </DataGrid>
 
-        <Label x:Name="lblOrderDetails"  Margin="22,263,741,357" Visibility="Hidden"></Label>
+        <Label x:Name="lblOrderDetails"  Margin="22,263,528,357" Visibility="Hidden"></Label>
         <Label x:Name="lblOrderId"  Margin="22,263,741,357" Visibility="Hidden"></Label>
-        <Button x:Name="btnCreateInvoice" Content="Create Invoice" HorizontalAlignment="Left" Margin="234,274,0,0" VerticalAlignment="Top" Width="91" Visibility="Hidden" Click="btnCreateInvoice_Click"/>
+        <Button x:Name="btnCreateInvoice" Content="Create Invoice" HorizontalAlignment="Left" Margin="441,274,0,0" VerticalAlignment="Top" Width="91" Visibility="Hidden" Click="btnCreateInvoice_Click"/>
+        <Button x:Name="btnViewInvoice" Content="View Invoice" HorizontalAlignment="Left" Margin="561,274,0,0" VerticalAlignment="Top" Width="91" Visibility="Hidden"  Click="btnViewInvoice_Click"/>
         <DataGrid x:Name="dgOrderDetails" HorizontalAlignment="Left" Margin="22,299,0,181" CanUserAddRows="False" Width="640" AutoGenerateColumns="false" Visibility="hidden">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Description}" Header="Description" IsReadOnly="True" Width="*"/>

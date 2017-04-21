@@ -121,9 +121,13 @@
     <Compile Include="EditVendor.xaml.cs">
       <DependentUpon>EditVendor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Invoice.xaml.cs">
+      <DependentUpon>Invoice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Models\AddOrderModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\PackingSlipModel.cs" />
     <Compile Include="Models\VendorsModel.cs" />
@@ -161,6 +165,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Reports\Invoice.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PackingSlip.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -218,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditVendor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
