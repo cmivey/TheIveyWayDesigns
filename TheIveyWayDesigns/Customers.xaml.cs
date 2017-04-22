@@ -69,5 +69,12 @@ namespace TheIveyWayDesigns
             orders.Show();
             this.Close();
         }
+
+        private void btnInventory_Click(object sender, RoutedEventArgs e)
+        {
+            Inventory inventory = new Inventory();
+            inventory.Show();
+            this.Close();
+        }
     }
 }
