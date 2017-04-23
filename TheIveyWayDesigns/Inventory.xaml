@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="btnViewCustomer" Content="View Customers" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="93" Click="btnViewCustomer_Click"/>
         <Button x:Name="btnAddInventory" Content="Add Inventory" HorizontalAlignment="Left" Margin="129,10,0,0" VerticalAlignment="Top" Width="93" Click="btnAddInventory_Click"/>
-        <DataGrid x:Name="dgInventory" HorizontalAlignment="Left" Height="267" Margin="22,68,0,0" CanUserAddRows="False" VerticalAlignment="Top" Width="659" AutoGenerateColumns="false" ItemsSource="{Binding Source=inventoryModel}">
+        <DataGrid x:Name="dgInventory" HorizontalAlignment="Left" Height="267" Margin="22,68,0,0" CanUserAddRows="False" VerticalAlignment="Top" Width="659" AutoGenerateColumns="false" ItemsSource="{Binding Source=inventoryModel}" MouseDoubleClick="dgInventory_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding InventoryId}" Header="Id" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Size}" Header="Size" Width="*"/>

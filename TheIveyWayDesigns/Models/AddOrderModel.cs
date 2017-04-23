@@ -6,5 +6,6 @@
         public int Quantity { get; set; }
         public double Price { get; set; }
         public double LineTotal { get; set; }
+        public int InventoryId { get; set; }
     }
 }

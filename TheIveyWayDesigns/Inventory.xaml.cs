@@ -33,7 +33,9 @@ namespace TheIveyWayDesigns
         
         private void btnAddInventory_Click(object sender, RoutedEventArgs e)
         {
-            
+            AddInventory addInventory = new AddInventory();
+            addInventory.Show();
+            this.Close();
         }
 
         private void btnViewCustomer_Click(object sender, RoutedEventArgs e)
@@ -41,6 +43,14 @@ namespace TheIveyWayDesigns
             Customers customer = new Customers();
             customer.Show();
             this.Hide();
+        }
+
+        private void dgInventory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int inventoryId = ((InventoryModel )dgInventory.SelectedItem).InventoryId;
+            EditInventory editInventory = new EditInventory(inventoryId);
+            editInventory.Show();
+            this.Close();
         }
     }
 }

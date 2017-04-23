@@ -121,6 +121,9 @@
     <Compile Include="EditCustomer.xaml.cs">
       <DependentUpon>EditCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditInventory.xaml.cs">
+      <DependentUpon>EditInventory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditVendor.xaml.cs">
       <DependentUpon>EditVendor.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditInventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

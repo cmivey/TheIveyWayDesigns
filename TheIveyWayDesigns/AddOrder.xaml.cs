@@ -37,7 +37,7 @@ namespace TheIveyWayDesigns
 
         private void btnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (txtDescription.Text == "" || txtPrice.Text == "" || txtQuantity.Text == "")
+            if (cbItem.SelectedIndex == -1 || txtPrice.Text == "" || txtQuantity.Text == "")
             {
                 MessageBox.Show("Please enter all data!");
                 return;
@@ -49,10 +49,11 @@ namespace TheIveyWayDesigns
             {
                 addOrderModel.Add(new AddOrderModel()
                 {
-                    Description = txtDescription.Text,
+                    Description = cbItem.SelectedItem.ToString(),
                     Quantity = Convert.ToInt32(txtQuantity.Text),
                     Price = Convert.ToDouble(txtPrice.Text),
-                    LineTotal = Convert.ToDouble(txtPrice.Text) * Convert.ToDouble(txtQuantity.Text)
+                    LineTotal = Convert.ToDouble(txtPrice.Text) * Convert.ToDouble(txtQuantity.Text),
+                    InventoryId = Convert.ToInt32(cbItem.SelectedValue)
                 });
 
                 dgOrders.ItemsSource = addOrderModel;
@@ -66,16 +67,18 @@ namespace TheIveyWayDesigns
                         Description = dr.Description,
                         Quantity = Convert.ToInt32(dr.Quantity),
                         Price = Convert.ToDouble(dr.Price),
-                        LineTotal = Convert.ToDouble(dr.Price) * Convert.ToDouble(dr.Quantity)
+                        LineTotal = Convert.ToDouble(dr.Price) * Convert.ToDouble(dr.Quantity),
+                        InventoryId = dr.InventoryId                        
                     });
                 }
 
                 addOrderModel.Add(new AddOrderModel()
                 {
-                    Description = txtDescription.Text,
+                    Description = cbItem.SelectedItem.ToString(),
                     Quantity = Convert.ToInt32(txtQuantity.Text),
                     Price = Convert.ToDouble(txtPrice.Text),
-                    LineTotal = Convert.ToDouble(txtPrice.Text) * Convert.ToDouble(txtQuantity.Text)
+                    LineTotal = Convert.ToDouble(txtPrice.Text) * Convert.ToDouble(txtQuantity.Text),
+                    InventoryId = Convert.ToInt32(cbItem.SelectedValue)
                 });
 
                 dgOrders.ItemsSource = addOrderModel;
@@ -95,6 +98,15 @@ namespace TheIveyWayDesigns
             dbConnect.AddOrder(addOrderModel, Convert.ToInt32(txtCustomerId.Text));
 
             MessageBox.Show("Orders Submitted Successfully");
+        }
+
+        private void cbItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            IEnumerable<InventoryModel> inventory = dbConnect.GetInventoryForDropdowns();
+
+            cbItem.ItemsSource = inventory;
+            cbItem.DisplayMemberPath = "Description";
+            cbItem.SelectedValuePath = "InventoryId";
         }
     }
 }

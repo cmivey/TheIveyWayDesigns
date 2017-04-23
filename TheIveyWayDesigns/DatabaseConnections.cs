@@ -146,7 +146,11 @@ namespace TheIveyWayDesigns
                     comm.Connection.Open();
                     comm.ExecuteNonQuery();
                     comm.Connection.Close();
+
+                    
                 }
+
+                
             }
             
         }
@@ -462,6 +466,28 @@ namespace TheIveyWayDesigns
             }).ToList();
         }
 
+        public IEnumerable<InventoryModel> GetInventoryForDropdowns()
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "select InventoryId, Description, Size, Quantity from Inventory";
+
+                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+
+                da.Fill(dt);
+            }
+
+            return dt.AsEnumerable().Select(o => new InventoryModel()
+            {
+                InventoryId = Convert.ToInt32(o["InventoryId"].ToString()),
+                Description = o["Size"].ToString() + ' ' + o["Description"].ToString()
+            }).ToList();
+        }
+
         public void AddInventory(InventoryModel inventoryModel)
         {
             string connectionString = CreateDatabase();
@@ -473,6 +499,28 @@ namespace TheIveyWayDesigns
                 comm.CommandType = CommandType.Text;
                 comm.CommandText = "insert into Inventory (Description, Size, Quantity) values (@Description, @Size, @Quantity)";
 
+                comm.Parameters.AddWithValue("@Description", inventoryModel.Description);
+                comm.Parameters.AddWithValue("@Size", inventoryModel.Size);
+                comm.Parameters.AddWithValue("@Quantity", inventoryModel.Quantity);
+
+                comm.Connection.Open();
+                comm.ExecuteNonQuery();
+                comm.Connection.Close();
+            }
+        }
+
+        public void UpdateInventory(InventoryModel inventoryModel)
+        {
+            string connectionString = CreateDatabase();
+            DataTable dt = new DataTable();
+            using (SqlCeCommand comm = new SqlCeCommand())
+            {
+                comm.Connection = new SqlCeConnection(connectionString);
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "UPDATE Inventory SET Description = @Description, Size = @Size, " +
+                    "Quantity = @Quantity Where InventoryId = @InventoryId";
+
+                comm.Parameters.AddWithValue("@InventoryId", inventoryModel.InventoryId);
                 comm.Parameters.AddWithValue("@Description", inventoryModel.Description);
                 comm.Parameters.AddWithValue("@Size", inventoryModel.Size);
                 comm.Parameters.AddWithValue("@Quantity", inventoryModel.Quantity);
